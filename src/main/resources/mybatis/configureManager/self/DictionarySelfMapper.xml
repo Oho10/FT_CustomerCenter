@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.configureManager.dao.self.DictionarySelfDao">
+
+	<resultMap id="dictMap" type="com.bootdo.configureManager.domain.DictionaryDO">
+		<id property="dictId" column="dict_id"/>
+		<result property="dictNumber" column="dict_number"/>
+		<result property="dictName" column="dict_name"/>
+		<result property="typeId" column="type_id"/>
+		<result property="dictDesc" column="dict_desc"/>
+		<result property="dictSort" column="dict_sort"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="remarks" column="remarks"/>
+		<association property="typeDO" javaType="com.bootdo.configureManager.domain.TypeDO">
+			<id property="typeId" column="type_id"/>
+			<result property="typeNumber" column="type_number"/>
+			<result property="typeName" column="type_name"/>
+			<result property="typeDesc" column="type_desc"/>
+			<result property="createTime" column="create_time"/>
+			<result property="createBy" column="create_by"/>
+			<result property="updateTime" column="update_time"/>
+			<result property="updateBy" column="update_by"/>
+			<result property="canEdit" column="can_edit"/>
+		</association>
+	</resultMap>
+
+	<select id="get" resultMap="dictMap">
+		select `dict_id`,`dict_number`,`dict_name`,type_number,D.type_id,`dict_desc`,`dict_sort`,`del_flag`,`remarks` from dictionary D,dictionary_type T where D.type_id=T.type_id and dict_id = #{value}
+	</select>
+
+	<select id="list1" resultMap="dictMap">
+		SELECT type_number,type_id FROM dictionary_type
+	</select>
+	<select id="list" resultMap="dictMap">
+		select `dict_id`,`dict_number`,`type_number`,`dict_name`,D.type_id,`dict_desc`,`dict_sort`,`del_flag`,`remarks` from dictionary D, dictionary_type T
+		<where>
+			D.type_id=T.type_id
+			<if test="dictId != null and dictId != ''"> and dict_id = #{dictId} </if>
+			<if test="dictNumber != null and dictNumber != ''"> and dict_number = #{dictNumber} </if>
+			<if test="typeNumber != null and typeNumber != ''"> and type_number = #{typeNumber} </if>
+			<if test="dictName != null and dictName != ''"> and dict_name = #{dictName} </if>
+			<if test="typeId != null and typeId != ''"> and type_id = #{typeId} </if>
+			<if test="dictDesc != null and dictDesc != ''"> and dict_desc = #{dictDesc} </if>
+			<if test="dictSort != null and dictSort != ''"> and dict_sort = #{dictSort} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="createBy != null and createBy != ''"> and create_by = #{createBy} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+			<if test="updateBy != null and updateBy != ''"> and update_by = #{updateBy} </if>
+			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+			<if test="remarks != null and remarks != ''"> and remarks = #{remarks} </if>
+
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by dict_id ASC
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+</mapper>
