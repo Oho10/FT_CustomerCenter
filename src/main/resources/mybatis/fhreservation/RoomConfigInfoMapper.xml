@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fhreservation.dao.RoomConfigInfoDao">
+
+	<select id="get" resultType="com.bootdo.fhreservation.domain.RoomConfigInfoDO">
+		select `room_config_id`,`config_id`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from room_config_info where room_config_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fhreservation.domain.RoomConfigInfoDO">
+		select `room_config_id`,`config_id`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from room_config_info
+        <where>  
+		  		  <if test="roomConfigId != null and roomConfigId != ''"> and room_config_id = #{roomConfigId} </if>
+		  		  <if test="configId != null and configId != ''"> and config_id = #{configId} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by room_config_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from room_config_info
+		 <where>  
+		  		  <if test="roomConfigId != null and roomConfigId != ''"> and room_config_id = #{roomConfigId} </if>
+		  		  <if test="configId != null and configId != ''"> and config_id = #{configId} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.fhreservation.domain.RoomConfigInfoDO">
+		insert into room_config_info
+		(
+			`room_config_id`, 
+			`config_id`, 
+			`create_time`, 
+			`create_by_id`, 
+			`create_by_name`, 
+			`update_time`, 
+			`update_by_id`, 
+			`update_by_name`
+		)
+		values
+		(
+			#{roomConfigId}, 
+			#{configId}, 
+			#{createTime}, 
+			#{createById}, 
+			#{createByName}, 
+			#{updateTime}, 
+			#{updateById}, 
+			#{updateByName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.fhreservation.domain.RoomConfigInfoDO">
+		update room_config_info 
+		<set>
+			<if test="configId != null">`config_id` = #{configId}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}</if>
+		</set>
+		where room_config_id = #{roomConfigId}
+	</update>
+	
+	<delete id="remove">
+		delete from room_config_info where room_config_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from room_config_info where room_config_id in 
+		<foreach item="roomConfigId" collection="array" open="(" separator="," close=")">
+			#{roomConfigId}
+		</foreach>
+	</delete>
+
+</mapper>

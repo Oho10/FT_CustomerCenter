@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fhreservation.dao.ManageDao">
+
+	<select id="get" resultType="com.bootdo.fhreservation.domain.ManageDO">
+		select `room_id`,`room_name`,`room_floor_id`,`room_capacity`,`room_size`,`room_desc`,`room_picture_id`,`room_config_id`,`room_annotation`,`room_selection`,`room_state`,`room_down_time_start`,`room_down_time_stop`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name`,`is_delete` from room_manage where room_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fhreservation.domain.ManageDO">
+		select `room_id`,`room_name`,`room_floor_id`,`room_capacity`,`room_size`,`room_desc`,`room_picture_id`,`room_config_id`,`room_annotation`,`room_selection`,`room_state`,`room_down_time_start`,`room_down_time_stop`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name`,`is_delete` from room_manage
+        <where>  
+		  		  <if test="roomId != null and roomId != ''"> and room_id = #{roomId} </if>
+		  		  <if test="roomName != null and roomName != ''"> and room_name = #{roomName} </if>
+		  		  <if test="roomFloorId != null and roomFloorId != ''"> and room_floor_id = #{roomFloorId} </if>
+		  		  <if test="roomCapacity != null and roomCapacity != ''"> and room_capacity = #{roomCapacity} </if>
+		  		  <if test="roomSize != null and roomSize != ''"> and room_size = #{roomSize} </if>
+		  		  <if test="roomDesc != null and roomDesc != ''"> and room_desc = #{roomDesc} </if>
+		  		  <if test="roomPictureId != null and roomPictureId != ''"> and room_picture_id = #{roomPictureId} </if>
+		  		  <if test="roomConfigId != null and roomConfigId != ''"> and room_config_id = #{roomConfigId} </if>
+		  		  <if test="roomAnnotation != null and roomAnnotation != ''"> and room_annotation = #{roomAnnotation} </if>
+		  		  <if test="roomSelection != null and roomSelection != ''"> and room_selection = #{roomSelection} </if>
+		  		  <if test="roomState != null and roomState != ''"> and room_state = #{roomState} </if>
+		  		  <if test="roomDownTimeStart != null and roomDownTimeStart != ''"> and room_down_time_start = #{roomDownTimeStart} </if>
+		  		  <if test="roomDownTimeStop != null and roomDownTimeStop != ''"> and room_down_time_stop = #{roomDownTimeStop} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		  <if test="isDelete != null and isDelete != ''"> and is_delete = #{isDelete} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by room_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from room_manage
+		 <where>  
+		  		  <if test="roomId != null and roomId != ''"> and room_id = #{roomId} </if>
+		  		  <if test="roomName != null and roomName != ''"> and room_name = #{roomName} </if>
+		  		  <if test="roomFloorId != null and roomFloorId != ''"> and room_floor_id = #{roomFloorId} </if>
+		  		  <if test="roomCapacity != null and roomCapacity != ''"> and room_capacity = #{roomCapacity} </if>
+		  		  <if test="roomSize != null and roomSize != ''"> and room_size = #{roomSize} </if>
+		  		  <if test="roomDesc != null and roomDesc != ''"> and room_desc = #{roomDesc} </if>
+		  		  <if test="roomPictureId != null and roomPictureId != ''"> and room_picture_id = #{roomPictureId} </if>
+		  		  <if test="roomConfigId != null and roomConfigId != ''"> and room_config_id = #{roomConfigId} </if>
+		  		  <if test="roomAnnotation != null and roomAnnotation != ''"> and room_annotation = #{roomAnnotation} </if>
+		  		  <if test="roomSelection != null and roomSelection != ''"> and room_selection = #{roomSelection} </if>
+		  		  <if test="roomState != null and roomState != ''"> and room_state = #{roomState} </if>
+		  		  <if test="roomDownTimeStart != null and roomDownTimeStart != ''"> and room_down_time_start = #{roomDownTimeStart} </if>
+		  		  <if test="roomDownTimeStop != null and roomDownTimeStop != ''"> and room_down_time_stop = #{roomDownTimeStop} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		  <if test="isDelete != null and isDelete != ''"> and is_delete = #{isDelete} </if>
+		  		</where>
+	</select>
+	 
+	<!--<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.ManageDO">-->
+		<!--insert into room_manage-->
+		<!--(-->
+			<!--`room_id`, -->
+			<!--`room_name`, -->
+			<!--`room_floor_id`, -->
+			<!--`room_capacity`, -->
+			<!--`room_size`, -->
+			<!--`room_desc`, -->
+			<!--`room_picture_id`, -->
+			<!--`room_config_id`, -->
+			<!--`room_annotation`, -->
+			<!--`room_selection`, -->
+			<!--`room_state`, -->
+			<!--`room_down_time_start`, -->
+			<!--`room_down_time_stop`, -->
+			<!--`create_time`, -->
+			<!--`create_by_id`, -->
+			<!--`create_by_name`, -->
+			<!--`update_time`, -->
+			<!--`update_by_id`, -->
+			<!--`update_by_name`, -->
+			<!--`is_delete`-->
+		<!--)-->
+		<!--values-->
+		<!--(-->
+			<!--#{roomId}, -->
+			<!--#{roomName}, -->
+			<!--#{roomFloorId}, -->
+			<!--#{roomCapacity}, -->
+			<!--#{roomSize}, -->
+			<!--#{roomDesc}, -->
+			<!--#{roomPictureId}, -->
+			<!--#{roomConfigId}, -->
+			<!--#{roomAnnotation}, -->
+			<!--#{roomSelection}, -->
+			<!--#{roomState}, -->
+			<!--#{roomDownTimeStart}, -->
+			<!--#{roomDownTimeStop}, -->
+			<!--#{createTime}, -->
+			<!--#{createById}, -->
+			<!--#{createByName}, -->
+			<!--#{updateTime}, -->
+			<!--#{updateById}, -->
+			<!--#{updateByName}, -->
+			<!--#{isDelete}-->
+		<!--)-->
+	<!--</insert>-->
+
+	<insert id="save" parameterType="com.bootdo.fhreservation.domain.ManageDO">
+		<!--
+          WARNING - @mbggenerated
+          Generated on 2018-07-31 17:46:59.
+              根据传入的参数添加部分信息
+        -->
+		insert into room_manage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roomId != null">
+				room_id,
+			</if>
+			<if test="roomName != null">
+				room_name,
+			</if>
+			<if test="roomFloorId != null">
+				room_floor_id,
+			</if>
+			<if test="roomCapacity != null">
+				room_capacity,
+			</if>
+			<if test="roomSize != null">
+				room_size,
+			</if>
+			<if test="roomDesc != null">
+				room_desc,
+			</if>
+			<if test="roomPictureId != null">
+				room_picture_id,
+			</if>
+			<if test="roomConfigId != null">
+				room_config_id,
+			</if>
+			<if test="roomAnnotation != null">
+				room_annotation,
+			</if>
+			<if test="roomSelection != null">
+				room_selection,
+			</if>
+			<if test="roomState != null">
+				room_state,
+			</if>
+			<if test="roomDownTimeStart != null">
+				room_down_time_start,
+			</if>
+			<if test="roomDownTimeStop != null">
+				room_down_time_stop,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createById != null">
+				create_by_id,
+			</if>
+			<if test="createByName != null">
+				create_by_name,
+			</if>
+			<if test="updateTime != null">
+				update_by_name,
+			</if>
+			<if test="updateById != null">
+				update_by_id,
+			</if>
+			<if test="updateByName != null">
+				update_by_name,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roomId != null">
+				#{roomId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomName != null">
+				#{roomName,jdbcType=VARCHAR},
+			</if>
+			<if test="roomFloorId != null">
+				#{roomFloorId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomCapacity != null">
+				#{roomCapacity,jdbcType=VARCHAR},
+			</if>
+			<if test="roomSize != null">
+				#{roomSize,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomDesc != null">
+				#{roomDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="roomPictureId != null">
+				#{roomPictureId,jdbcType=VARCHAR},
+			</if>
+			<if test="roomConfigId != null">
+				#{roomConfigId,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomAnnotation != null">
+				#{roomAnnotation,jdbcType=VARCHAR},
+			</if>
+			<if test="roomSelection != null">
+				#{roomSelection,jdbcType=VARCHAR},
+			</if>
+			<if test="roomState != null">
+				#{roomState,jdbcType=TIMESTAMP},
+			</if>
+			<if test="roomDownTimeStart != null">
+				#{roomDownTimeStart,jdbcType=VARCHAR},
+			</if>
+			<if test="roomDownTimeStop != null">
+				#{roomDownTimeStop,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createById != null">
+				#{createById,jdbcType=VARCHAR},
+			</if>
+			<if test="createByName != null">
+				#{createByName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateById != null">
+				#{updateById,jdbcType=VARCHAR},
+			</if>
+			<if test="updateByName != null">
+				#{updateByName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=VARCHAR},
+			</if>
+
+
+		</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.fhreservation.domain.ManageDO">
+		update room_manage 
+		<set>
+			<if test="roomName != null">`room_name` = #{roomName}, </if>
+			<if test="roomFloorId != null">`room_floor_id` = #{roomFloorId}, </if>
+			<if test="roomCapacity != null">`room_capacity` = #{roomCapacity}, </if>
+			<if test="roomSize != null">`room_size` = #{roomSize}, </if>
+			<if test="roomDesc != null">`room_desc` = #{roomDesc}, </if>
+			<if test="roomPictureId != null">`room_picture_id` = #{roomPictureId}, </if>
+			<if test="roomConfigId != null">`room_config_id` = #{roomConfigId}, </if>
+			<if test="roomAnnotation != null">`room_annotation` = #{roomAnnotation}, </if>
+			<if test="roomSelection != null">`room_selection` = #{roomSelection}, </if>
+			<if test="roomState != null">`room_state` = #{roomState}, </if>
+			<if test="roomDownTimeStart != null">`room_down_time_start` = #{roomDownTimeStart}, </if>
+			<if test="roomDownTimeStop != null">`room_down_time_stop` = #{roomDownTimeStop}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}, </if>
+			<if test="isDelete != null">`is_delete` = #{isDelete}</if>
+		</set>
+		where room_id = #{roomId}
+	</update>
+	
+	<delete id="remove">
+		delete from room_manage where room_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from room_manage where room_id in 
+		<foreach item="roomId" collection="array" open="(" separator="," close=")">
+			#{roomId}
+		</foreach>
+	</delete>
+
+</mapper>

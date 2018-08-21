@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fhreservation.dao.RoomReservationsManageDao">
+
+	<select id="get" resultType="com.bootdo.fhreservation.domain.RoomReservationsManageDO">
+		select `reservation_id`,`reservation_place_id`,`reservation_floor_id`,`reservation_room_id`,`reservation_date`,`reservation_date_start`,`reservation_date_stop`,`reservation_hour`,`reservation_type`,`reservation_people_id`,`reservation_email`,`reservation_name`,`phone`,`reservation_corporate_name`,`company_code`,`customer_name`,`colicy_number`,`pay_money`,`visitor_number`,`service_require_id`,`reservation_state`,`is_team`,`cancel_reason`,`change_reason`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from room_reservations_manage where reservation_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fhreservation.domain.RoomReservationsManageDO">
+		select `reservation_id`,`reservation_place_id`,`reservation_floor_id`,`reservation_room_id`,`reservation_date`,`reservation_date_start`,`reservation_date_stop`,`reservation_hour`,`reservation_type`,`reservation_people_id`,`reservation_email`,`reservation_name`,`phone`,`reservation_corporate_name`,`company_code`,`customer_name`,`colicy_number`,`pay_money`,`visitor_number`,`service_require_id`,`reservation_state`,`is_team`,`cancel_reason`,`change_reason`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from room_reservations_manage
+        <where>  
+		  		  <if test="reservationId != null and reservationId != ''"> and reservation_id = #{reservationId} </if>
+		  		  <if test="reservationPlaceId != null and reservationPlaceId != ''"> and reservation_place_id = #{reservationPlaceId} </if>
+		  		  <if test="reservationFloorId != null and reservationFloorId != ''"> and reservation_floor_id = #{reservationFloorId} </if>
+		  		  <if test="reservationRoomId != null and reservationRoomId != ''"> and reservation_room_id = #{reservationRoomId} </if>
+		  		  <if test="reservationDate != null and reservationDate != ''"> and reservation_date = #{reservationDate} </if>
+		  		  <if test="reservationDateStart != null and reservationDateStart != ''"> and reservation_date_start = #{reservationDateStart} </if>
+		  		  <if test="reservationDateStop != null and reservationDateStop != ''"> and reservation_date_stop = #{reservationDateStop} </if>
+		  		  <if test="reservationHour != null and reservationHour != ''"> and reservation_hour = #{reservationHour} </if>
+		  		  <if test="reservationType != null and reservationType != ''"> and reservation_type = #{reservationType} </if>
+		  		  <if test="reservationPeopleId != null and reservationPeopleId != ''"> and reservation_people_id = #{reservationPeopleId} </if>
+		  		  <if test="reservationEmail != null and reservationEmail != ''"> and reservation_email = #{reservationEmail} </if>
+		  		  <if test="reservationName != null and reservationName != ''"> and reservation_name = #{reservationName} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="reservationCorporateName != null and reservationCorporateName != ''"> and reservation_corporate_name = #{reservationCorporateName} </if>
+		  		  <if test="companyCode != null and companyCode != ''"> and company_code = #{companyCode} </if>
+		  		  <if test="customerName != null and customerName != ''"> and customer_name = #{customerName} </if>
+		  		  <if test="colicyNumber != null and colicyNumber != ''"> and colicy_number = #{colicyNumber} </if>
+		  		  <if test="payMoney != null and payMoney != ''"> and pay_money = #{payMoney} </if>
+		  		  <if test="visitorNumber != null and visitorNumber != ''"> and visitor_number = #{visitorNumber} </if>
+		  		  <if test="serviceRequireId != null and serviceRequireId != ''"> and service_require_id = #{serviceRequireId} </if>
+		  		  <if test="reservationState != null and reservationState != ''"> and reservation_state = #{reservationState} </if>
+		  		  <if test="isTeam != null and isTeam != ''"> and is_team = #{isTeam} </if>
+		  		  <if test="cancelReason != null and cancelReason != ''"> and cancel_reason = #{cancelReason} </if>
+		  		  <if test="changeReason != null and changeReason != ''"> and change_reason = #{changeReason} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by reservation_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from room_reservations_manage
+		 <where>  
+		  		  <if test="reservationId != null and reservationId != ''"> and reservation_id = #{reservationId} </if>
+		  		  <if test="reservationPlaceId != null and reservationPlaceId != ''"> and reservation_place_id = #{reservationPlaceId} </if>
+		  		  <if test="reservationFloorId != null and reservationFloorId != ''"> and reservation_floor_id = #{reservationFloorId} </if>
+		  		  <if test="reservationRoomId != null and reservationRoomId != ''"> and reservation_room_id = #{reservationRoomId} </if>
+		  		  <if test="reservationDate != null and reservationDate != ''"> and reservation_date = #{reservationDate} </if>
+		  		  <if test="reservationDateStart != null and reservationDateStart != ''"> and reservation_date_start = #{reservationDateStart} </if>
+		  		  <if test="reservationDateStop != null and reservationDateStop != ''"> and reservation_date_stop = #{reservationDateStop} </if>
+		  		  <if test="reservationHour != null and reservationHour != ''"> and reservation_hour = #{reservationHour} </if>
+		  		  <if test="reservationType != null and reservationType != ''"> and reservation_type = #{reservationType} </if>
+		  		  <if test="reservationPeopleId != null and reservationPeopleId != ''"> and reservation_people_id = #{reservationPeopleId} </if>
+		  		  <if test="reservationEmail != null and reservationEmail != ''"> and reservation_email = #{reservationEmail} </if>
+		  		  <if test="reservationName != null and reservationName != ''"> and reservation_name = #{reservationName} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="reservationCorporateName != null and reservationCorporateName != ''"> and reservation_corporate_name = #{reservationCorporateName} </if>
+		  		  <if test="companyCode != null and companyCode != ''"> and company_code = #{companyCode} </if>
+		  		  <if test="customerName != null and customerName != ''"> and customer_name = #{customerName} </if>
+		  		  <if test="colicyNumber != null and colicyNumber != ''"> and colicy_number = #{colicyNumber} </if>
+		  		  <if test="payMoney != null and payMoney != ''"> and pay_money = #{payMoney} </if>
+		  		  <if test="visitorNumber != null and visitorNumber != ''"> and visitor_number = #{visitorNumber} </if>
+		  		  <if test="serviceRequireId != null and serviceRequireId != ''"> and service_require_id = #{serviceRequireId} </if>
+		  		  <if test="reservationState != null and reservationState != ''"> and reservation_state = #{reservationState} </if>
+		  		  <if test="isTeam != null and isTeam != ''"> and is_team = #{isTeam} </if>
+		  		  <if test="cancelReason != null and cancelReason != ''"> and cancel_reason = #{cancelReason} </if>
+		  		  <if test="changeReason != null and changeReason != ''"> and change_reason = #{changeReason} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+	</select>
+	 
+<!--	<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.RoomReservationsManageDO">
+		insert into room_reservations_manage
+		(
+			`reservation_id`, 
+			`reservation_place_id`, 
+			`reservation_floor_id`, 
+			`reservation_room_id`, 
+			`reservation_date`, 
+			`reservation_date_start`, 
+			`reservation_date_stop`, 
+			`reservation_hour`, 
+			`reservation_type`, 
+			`reservation_people_id`, 
+			`reservation_email`, 
+			`reservation_name`, 
+			`phone`, 
+			`reservation_corporate_name`, 
+			`company_code`, 
+			`customer_name`, 
+			`colicy_number`, 
+			`pay_money`, 
+			`visitor_number`, 
+			`service_require_id`, 
+			`reservation_state`, 
+			`is_team`, 
+			`cancel_reason`, 
+			`change_reason`, 
+			`create_time`, 
+			`create_by_id`, 
+			`create_by_name`, 
+			`update_time`, 
+			`update_by_id`, 
+			`update_by_name`
+		)
+		values
+		(
+			#{reservationId}, 
+			#{reservationPlaceId}, 
+			#{reservationFloorId}, 
+			#{reservationRoomId}, 
+			#{reservationDate}, 
+			#{reservationDateStart}, 
+			#{reservationDateStop}, 
+			#{reservationHour}, 
+			#{reservationType}, 
+			#{reservationPeopleId}, 
+			#{reservationEmail}, 
+			#{reservationName}, 
+			#{phone}, 
+			#{reservationCorporateName}, 
+			#{companyCode}, 
+			#{customerName}, 
+			#{colicyNumber}, 
+			#{payMoney}, 
+			#{visitorNumber}, 
+			#{serviceRequireId}, 
+			#{reservationState}, 
+			#{isTeam}, 
+			#{cancelReason}, 
+			#{changeReason}, 
+			#{createTime}, 
+			#{createById}, 
+			#{createByName}, 
+			#{updateTime}, 
+			#{updateById}, 
+			#{updateByName}
+		)
+	</insert>-->
+	<insert id="save" parameterType="com.bootdo.fhreservation.domain.RoomReservationsManageDO">
+		<!--
+          WARNING - @mbggenerated
+          Generated on 2018-07-31 17:46:59.
+              根据传入的参数添加部分信息
+		-->
+		insert into room_reservations_manage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="reservationId != null">
+				reservation_id,
+			</if>
+			<if test="reservationPlaceId != null">
+				reservation_place_id,
+			</if>
+			<if test="reservationFloorId != null">
+				reservation_floor_id,
+			</if>
+			<if test="reservationRoomId != null">
+				reservation_room_id,
+			</if>
+			<if test="reservationDate != null">
+				reservation_date,
+			</if>
+			<if test="reservationDateStart != null">
+				reservation_date_start,
+			</if>
+			<if test="reservationDateStop != null">
+				reservation_date_stop,
+			</if>
+			<if test="reservationHour != null">
+				reservation_hour,
+			</if>
+			<if test="reservationType != null">
+				reservation_type,
+			</if>
+			<if test="reservationPeopleId != null">
+				reservation_people_id,
+			</if>
+			<if test="reservationEmail != null">
+				reservation_email,
+			</if>
+			<if test="reservationName != null">
+				reservation_name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="reservationCorporateName != null">
+				reservation_corporate_name,
+			</if>
+			<if test="companyCode != null">
+				company_code,
+			</if>
+			<if test="customerName != null">
+				customer_name,
+			</if>
+			<if test="colicyNumber != null">
+				colicy_number,
+			</if>
+			<if test="payMoney != null">
+				pay_money,
+			</if>
+			<if test="visitorNumber != null">
+				visitor_number,
+			</if>
+			<if test="serviceRequireId != null">
+				service_require_id,
+			</if>
+			<if test="isTeam != null">
+				isTeam,
+			</if>
+			<if test="cancelReason != null">
+				cancel_reason,
+			</if>
+			<if test="changeReason != null">
+				change_reason,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createById != null">
+				create_by_id,
+			</if>
+			<if test="createByName != null">
+				create_by_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateById != null">
+				update_by_id,
+			</if>
+			<if test="updateByName != null">
+				update_by_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="reservationId != null">
+				#{reservationId,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationPlaceId != null">
+				#{reservationPlaceId,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationFloorId != null">
+				#{reservationFloorId,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationRoomId != null">
+				#{reservationRoomId,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationDate != null">
+				#{reservationDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reservationDateStart != null">
+				#{reservationDateStart,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reservationDateStop != null">
+				#{reservationDateStop,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reservationHour != null">
+				#{reservationHour,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reservationType != null">
+				#{reservationType,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationPeopleId != null">
+				#{reservationPeopleId,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationEmail != null">
+				#{reservationEmail,jdbcType=TIMESTAMP},
+			</if>
+			<if test="reservationName != null">
+				#{reservationName,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationCorporateName != null">
+				#{reservationCorporateName,jdbcType=VARCHAR},
+			</if>
+			<if test="companyCode != null">
+				#{companyCode,jdbcType=VARCHAR},
+			</if>
+			<if test="customerName != null">
+				#{customerName,jdbcType=VARCHAR},
+			</if>
+			<if test="colicyNumber != null">
+				#{colicyNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="payMoney != null">
+				#{payMoney,jdbcType=DECIMAL},
+			</if>
+			<if test="visitorNumber != null">
+				#{visitorNumber,jdbcType=INT},
+			</if>
+			<if test="serviceRequireId != null">
+				#{serviceRequireId,jdbcType=VARCHAR},
+			</if>
+			<if test="reservationState != null">
+				#{reservationState,jdbcType=VARCHAR},
+			</if>
+			<if test="isTeam != null">
+				#{isTeam,jdbcType=VARCHAR},
+			</if>
+			<if test="cancel_reason != null">
+				#{cancel_reason,jdbcType=VARCHAR},
+			</if>
+			<if test="changeReason != null">
+				#{changeReason,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createById != null">
+				#{createById,jdbcType=VARCHAR},
+			</if>
+			<if test="createByName != null">
+				#{createByName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateById != null">
+				#{updateById,jdbcType=VARCHAR},
+			</if>
+			<if test="updateByName != null">
+				#{updateByName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.bootdo.fhreservation.domain.RoomReservationsManageDO">
+		update room_reservations_manage 
+		<set>
+			<if test="reservationPlaceId != null">`reservation_place_id` = #{reservationPlaceId}, </if>
+			<if test="reservationFloorId != null">`reservation_floor_id` = #{reservationFloorId}, </if>
+			<if test="reservationRoomId != null">`reservation_room_id` = #{reservationRoomId}, </if>
+			<if test="reservationDate != null">`reservation_date` = #{reservationDate}, </if>
+			<if test="reservationDateStart != null">`reservation_date_start` = #{reservationDateStart}, </if>
+			<if test="reservationDateStop != null">`reservation_date_stop` = #{reservationDateStop}, </if>
+			<if test="reservationHour != null">`reservation_hour` = #{reservationHour}, </if>
+			<if test="reservationType != null">`reservation_type` = #{reservationType}, </if>
+			<if test="reservationPeopleId != null">`reservation_people_id` = #{reservationPeopleId}, </if>
+			<if test="reservationEmail != null">`reservation_email` = #{reservationEmail}, </if>
+			<if test="reservationName != null">`reservation_name` = #{reservationName}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="reservationCorporateName != null">`reservation_corporate_name` = #{reservationCorporateName}, </if>
+			<if test="companyCode != null">`company_code` = #{companyCode}, </if>
+			<if test="customerName != null">`customer_name` = #{customerName}, </if>
+			<if test="colicyNumber != null">`colicy_number` = #{colicyNumber}, </if>
+			<if test="payMoney != null">`pay_money` = #{payMoney}, </if>
+			<if test="visitorNumber != null">`visitor_number` = #{visitorNumber}, </if>
+			<if test="serviceRequireId != null">`service_require_id` = #{serviceRequireId}, </if>
+			<if test="reservationState != null">`reservation_state` = #{reservationState}, </if>
+			<if test="isTeam != null">`is_team` = #{isTeam}, </if>
+			<if test="cancelReason != null">`cancel_reason` = #{cancelReason}, </if>
+			<if test="changeReason != null">`change_reason` = #{changeReason}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}</if>
+		</set>
+		where reservation_id = #{reservationId}
+	</update>
+	
+	<delete id="remove">
+		delete from room_reservations_manage where reservation_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from room_reservations_manage where reservation_id in 
+		<foreach item="reservationId" collection="array" open="(" separator="," close=")">
+			#{reservationId}
+		</foreach>
+	</delete>
+
+</mapper>

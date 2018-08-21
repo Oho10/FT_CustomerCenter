@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fhreservation.dao.ImportantRemindingDao">
+
+	<select id="get" resultType="com.bootdo.fhreservation.domain.ImportantRemindingDO">
+		select `important_reminding_id`,`theme`,`template_id`,`content`,`release_date_begin`,`release_date_end`,`release_status`,`release_date`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name`,`is_delete` from important_reminding where important_reminding_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fhreservation.domain.ImportantRemindingDO">
+		select `important_reminding_id`,`theme`,`template_id`,`content`,`release_date_begin`,`release_date_end`,`release_status`,`release_date`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name`,`is_delete` from important_reminding
+        <where>  
+		  		  <if test="importantRemindingId != null and importantRemindingId != ''"> and important_reminding_id = #{importantRemindingId} </if>
+		  		  <if test="theme != null and theme != ''"> and theme = #{theme} </if>
+		  		  <if test="templateId != null and templateId != ''"> and template_id = #{templateId} </if>
+		  		  <if test="content != null and content != ''"> and content = #{content} </if>
+		  		  <if test="releaseDateBegin != null and releaseDateBegin != ''"> and release_date_begin = #{releaseDateBegin} </if>
+		  		  <if test="releaseDateEnd != null and releaseDateEnd != ''"> and release_date_end = #{releaseDateEnd} </if>
+		  		  <if test="releaseStatus != null and releaseStatus != ''"> and release_status = #{releaseStatus} </if>
+		  		  <if test="releaseDate != null and releaseDate != ''"> and release_date = #{releaseDate} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		  <if test="isDelete != null and isDelete != ''"> and is_delete = #{isDelete} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by important_reminding_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from important_reminding
+		 <where>  
+		  		  <if test="importantRemindingId != null and importantRemindingId != ''"> and important_reminding_id = #{importantRemindingId} </if>
+		  		  <if test="theme != null and theme != ''"> and theme = #{theme} </if>
+		  		  <if test="templateId != null and templateId != ''"> and template_id = #{templateId} </if>
+		  		  <if test="content != null and content != ''"> and content = #{content} </if>
+		  		  <if test="releaseDateBegin != null and releaseDateBegin != ''"> and release_date_begin = #{releaseDateBegin} </if>
+		  		  <if test="releaseDateEnd != null and releaseDateEnd != ''"> and release_date_end = #{releaseDateEnd} </if>
+		  		  <if test="releaseStatus != null and releaseStatus != ''"> and release_status = #{releaseStatus} </if>
+		  		  <if test="releaseDate != null and releaseDate != ''"> and release_date = #{releaseDate} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		  <if test="isDelete != null and isDelete != ''"> and is_delete = #{isDelete} </if>
+		  		</where>
+	</select>
+	 
+<!--	<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.ImportantRemindingDO">
+		insert into important_reminding
+		(
+			`important_reminding_id`, 
+			`theme`, 
+			`template_id`, 
+			`content`, 
+			`release_date_begin`, 
+			`release_date_end`, 
+			`release_status`, 
+			`release_date`, 
+			`create_time`, 
+			`create_by_id`, 
+			`create_by_name`, 
+			`update_time`, 
+			`update_by_id`, 
+			`update_by_name`, 
+			`is_delete`
+		)
+		values
+		(
+			#{importantRemindingId}, 
+			#{theme}, 
+			#{templateId}, 
+			#{content}, 
+			#{releaseDateBegin}, 
+			#{releaseDateEnd}, 
+			#{releaseStatus}, 
+			#{releaseDate}, 
+			#{createTime}, 
+			#{createById}, 
+			#{createByName}, 
+			#{updateTime}, 
+			#{updateById}, 
+			#{updateByName}, 
+			#{isDelete}
+		)
+	</insert>-->
+	<insert id="save" parameterType="com.bootdo.fhreservation.domain.ImportantRemindingDO">
+		<!--
+          WARNING - @mbggenerated
+          Generated on 2018-07-31 17:46:59.
+              根据传入的参数添加部分信息
+        -->
+		insert into  important_reminding
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="importantRemindingId != null">
+				important_reminding_id,
+			</if>
+			<if test="theme != null">
+				theme,
+			</if>
+			<if test="templateId != null">
+				template_id,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="releaseDateBegin != null">
+				release_date_begin,
+			</if>
+			<if test="releaseDateEnd != null">
+				release_date_end,
+			</if>
+			<if test="releaseStatus != null">
+				release_status,
+			</if>
+			<if test="releaseDate != null">
+				release_date,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createById != null">
+				create_by_id,
+			</if>
+			<if test="createByName != null">
+				create_by_name,
+			</if>
+			<if test="updateTime != null">
+				update_by_name,
+			</if>
+			<if test="updateById != null">
+				update_by_id,
+			</if>
+			<if test="updateByName != null">
+				update_by_name,
+			</if>
+			<if test="isDelete != null">
+				is_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="importantRemindingId != null">
+				#{importantRemindingId,jdbcType=VARCHAR},
+			</if>
+			<if test="theme != null">
+				#{theme,jdbcType=VARCHAR},
+			</if>
+			<if test="templateId != null">
+				#{templateId,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseDateBegin != null">
+				#{releaseDateBegin,jdbcType=TIMESTAMP},
+			</if>
+			<if test="releaseDateEnd != null">
+				#{releaseDateEnd,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseStatus != null">
+				#{releaseStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="releaseDate != null">
+				#{releaseDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createById != null">
+				#{createById,jdbcType=VARCHAR},
+			</if>
+			<if test="createByName != null">
+				#{createByName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateById != null">
+				#{updateById,jdbcType=VARCHAR},
+			</if>
+			<if test="updateByName != null">
+				#{updateByName,jdbcType=VARCHAR},
+			</if>
+			<if test="isDelete != null">
+				#{isDelete,jdbcType=VARCHAR},
+			</if>
+
+
+		</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.fhreservation.domain.ImportantRemindingDO">
+		update important_reminding 
+		<set>
+			<if test="theme != null">`theme` = #{theme}, </if>
+			<if test="templateId != null">`template_id` = #{templateId}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="releaseDateBegin != null">`release_date_begin` = #{releaseDateBegin}, </if>
+			<if test="releaseDateEnd != null">`release_date_end` = #{releaseDateEnd}, </if>
+			<if test="releaseStatus != null">`release_status` = #{releaseStatus}, </if>
+			<if test="releaseDate != null">`release_date` = #{releaseDate}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}, </if>
+			<if test="isDelete != null">`is_delete` = #{isDelete}</if>
+		</set>
+		where important_reminding_id = #{importantRemindingId}
+	</update>
+	
+	<delete id="remove">
+		delete from important_reminding where important_reminding_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from important_reminding where important_reminding_id in 
+		<foreach item="importantRemindingId" collection="array" open="(" separator="," close=")">
+			#{importantRemindingId}
+		</foreach>
+	</delete>
+
+</mapper>
