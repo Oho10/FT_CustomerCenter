@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fuHuiBookManage.dao.PlaceFloorManageDao">
+
+	<select id="get" resultType="com.bootdo.fuHuiBookManage.domain.PlaceFloorManageDO">
+		select `floor_id`,`place_id`,`floor_number`,`floor_plan_id`,`floor_image_id`,`floor_desc`,`annotation`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name`,`is_delete` from room_place_floor_manage where floor_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fuHuiBookManage.domain.PlaceFloorManageDO">
+		select `floor_id`,`place_id`,`floor_number`,`floor_plan_id`,`floor_image_id`,`floor_desc`,`annotation`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name`,`is_delete` from room_place_floor_manage
+        <where>  
+		  		  <if test="floorId != null and floorId != ''"> and floor_id = #{floorId} </if>
+		  		  <if test="placeId != null and placeId != ''"> and place_id = #{placeId} </if>
+		  		  <if test="floorNumber != null and floorNumber != ''"> and floor_number = #{floorNumber} </if>
+		  		  <if test="floorPlanId != null and floorPlanId != ''"> and floor_plan_id = #{floorPlanId} </if>
+		  		  <if test="floorImageId != null and floorImageId != ''"> and floor_image_id = #{floorImageId} </if>
+		  		  <if test="floorDesc != null and floorDesc != ''"> and floor_desc = #{floorDesc} </if>
+		  		  <if test="annotation != null and annotation != ''"> and annotation = #{annotation} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		  <if test="isDelete != null and isDelete != ''"> and is_delete = #{isDelete} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by floor_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from room_place_floor_manage
+		 <where>  
+		  		  <if test="floorId != null and floorId != ''"> and floor_id = #{floorId} </if>
+		  		  <if test="placeId != null and placeId != ''"> and place_id = #{placeId} </if>
+		  		  <if test="floorNumber != null and floorNumber != ''"> and floor_number = #{floorNumber} </if>
+		  		  <if test="floorPlanId != null and floorPlanId != ''"> and floor_plan_id = #{floorPlanId} </if>
+		  		  <if test="floorImageId != null and floorImageId != ''"> and floor_image_id = #{floorImageId} </if>
+		  		  <if test="floorDesc != null and floorDesc != ''"> and floor_desc = #{floorDesc} </if>
+		  		  <if test="annotation != null and annotation != ''"> and annotation = #{annotation} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		  <if test="isDelete != null and isDelete != ''"> and is_delete = #{isDelete} </if>
+		  		</where>
+	</select>
+	 
+	<!--<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.PlaceFloorManageDO">-->
+		<!--insert into room_place_floor_manage-->
+		<!--(-->
+			<!--`floor_id`, -->
+			<!--`place_id`, -->
+			<!--`floor_number`, -->
+			<!--`floor_plan_id`, -->
+			<!--`floor_image_id`, -->
+			<!--`floor_desc`, -->
+			<!--`annotation`, -->
+			<!--`create_time`, -->
+			<!--`create_by_id`, -->
+			<!--`create_by_name`, -->
+			<!--`update_time`, -->
+			<!--`update_by_id`, -->
+			<!--`update_by_name`, -->
+			<!--`is_delete`-->
+		<!--)-->
+		<!--values-->
+		<!--(-->
+			<!--#{floorId}, -->
+			<!--#{placeId}, -->
+			<!--#{floorNumber}, -->
+			<!--#{floorPlanId}, -->
+			<!--#{floorImageId}, -->
+			<!--#{floorDesc}, -->
+			<!--#{annotation}, -->
+			<!--#{createTime}, -->
+			<!--#{createById}, -->
+			<!--#{createByName}, -->
+			<!--#{updateTime}, -->
+			<!--#{updateById}, -->
+			<!--#{updateByName}, -->
+			<!--#{isDelete}-->
+		<!--)-->
+	<!--</insert>-->
+	<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.PlaceFloorManageDO">
+	insert into room_place_floor_manage
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="floorId != null">
+			floor_id,
+		</if>
+		<if test="placeId != null">
+			place_id,
+		</if>
+		<if test="floorNumber != null">
+			floor_number,
+		</if>
+		<if test="floorPlanId != null">
+			floor_plan_id,
+		</if>
+		<if test="floorImageId != null">
+			floor_image_id,
+		</if>
+		<if test="floorDesc != null">
+			floor_desc,
+		</if>
+		<if test="annotation != null">
+			annotation,
+		</if>
+		<if test="createTime != null">
+			create_time,
+		</if>
+		<if test="createById != null">
+			create_by_id,
+		</if>
+		<if test="createByName != null">
+			create_by_name,
+		</if>
+		<if test="updateTime != null">
+			update_time,
+		</if>
+		<if test="updateById != null">
+			update_by_id,
+		</if>
+		<if test="updateByName != null">
+			update_by_name,
+		</if>
+		<if test="isDelete != null">
+			is_delete,
+		</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="floorId != null">
+			#{floorId,jdbcType=VARCHAR},
+		</if>
+		<if test="placeId != null">
+			#{placeId,jdbcType=VARCHAR},
+		</if>
+		<if test="floorNumber != null">
+			#{floorNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="floorPlanId != null">
+			#{floorPlanId,jdbcType=VARCHAR},
+		</if>
+		<if test="floorImageId != null">
+			#{floorImageId,jdbcType=TIMESTAMP},
+		</if>
+		<if test="floorDesc != null">
+			#{floorDesc,jdbcType=VARCHAR},
+		</if>
+		<if test="annotation != null">
+			#{annotation,jdbcType=VARCHAR},
+		</if>
+		<if test="createTime != null">
+			#{createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="createById != null">
+			#{createById,jdbcType=VARCHAR},
+		</if>
+		<if test="createByName != null">
+			#{createByName,jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null">
+			#{updateTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateById != null">
+			#{updateById,jdbcType=VARCHAR},
+		</if>
+		<if test="updateByName != null">
+			#{updateByName,jdbcType=VARCHAR},
+		</if>
+		<if test="isDelete != null">
+			#{isDelete,jdbcType=VARCHAR},
+		</if>
+
+	</trim>
+</insert>
+	 
+	<update id="update" parameterType="com.bootdo.fuHuiBookManage.domain.PlaceFloorManageDO">
+		update room_place_floor_manage 
+		<set>
+			<if test="placeId != null">`place_id` = #{placeId}, </if>
+			<if test="floorNumber != null">`floor_number` = #{floorNumber}, </if>
+			<if test="floorPlanId != null">`floor_plan_id` = #{floorPlanId}, </if>
+			<if test="floorImageId != null">`floor_image_id` = #{floorImageId}, </if>
+			<if test="floorDesc != null">`floor_desc` = #{floorDesc}, </if>
+			<if test="annotation != null">`annotation` = #{annotation}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}, </if>
+			<if test="isDelete != null">`is_delete` = #{isDelete}</if>
+		</set>
+		where floor_id = #{floorId}
+	</update>
+	
+	<delete id="remove">
+		delete from room_place_floor_manage where floor_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from room_place_floor_manage where floor_id in 
+		<foreach item="floorId" collection="array" open="(" separator="," close=")">
+			#{floorId}
+		</foreach>
+	</delete>
+
+</mapper>

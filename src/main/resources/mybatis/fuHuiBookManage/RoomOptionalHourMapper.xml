@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fuHuiBookManage.dao.RoomOptionalHourDao">
+
+	<select id="get" resultType="com.bootdo.fuHuiBookManage.domain.RoomOptionalHourDO">
+		select `optional_id`,`optional_hour_id`,`optional_hour`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from room_optional_hour where optional_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fuHuiBookManage.domain.RoomOptionalHourDO">
+		select `optional_id`,`optional_hour_id`,`optional_hour`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from room_optional_hour
+        <where>  
+		  		  <if test="optionalId != null and optionalId != ''"> and optional_id = #{optionalId} </if>
+		  		  <if test="optionalHourId != null and optionalHourId != ''"> and optional_hour_id = #{optionalHourId} </if>
+		  		  <if test="optionalHour != null and optionalHour != ''"> and optional_hour = #{optionalHour} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by optional_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from room_optional_hour
+		 <where>  
+		  		  <if test="optionalId != null and optionalId != ''"> and optional_id = #{optionalId} </if>
+		  		  <if test="optionalHourId != null and optionalHourId != ''"> and optional_hour_id = #{optionalHourId} </if>
+		  		  <if test="optionalHour != null and optionalHour != ''"> and optional_hour = #{optionalHour} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+	</select>
+	 
+<!--
+	<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.RoomOptionalHourDO">
+		insert into room_optional_hour
+		(
+			`optional_id`, 
+			`optional_hour_id`, 
+			`optional_hour`, 
+			`create_time`, 
+			`create_by_id`, 
+			`create_by_name`, 
+			`update_time`, 
+			`update_by_id`, 
+			`update_by_name`
+		)
+		values
+		(
+			#{optionalId}, 
+			#{optionalHourId}, 
+			#{optionalHour}, 
+			#{createTime}, 
+			#{createById}, 
+			#{createByName}, 
+			#{updateTime}, 
+			#{updateById}, 
+			#{updateByName}
+		)
+	</insert>
+-->
+
+	<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.RoomOptionalHourDO">
+		<!--
+          WARNING - @mbggenerated
+          Generated on 2018-07-31 17:46:59.
+              根据传入的参数添加部分信息
+        -->
+		insert into room_optional_hour
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="optionalId != null">
+				optional_id,
+			</if>
+			<if test="optionalHourId != null">
+				optional_hour_id,
+			</if>
+			<if test="optionalHour != null">
+				optional_hour,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createById != null">
+				create_by_id,
+			</if>
+			<if test="createByName != null">
+				create_by_name,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateById != null">
+				update_by_id,
+			</if>
+			<if test="updateByName != null">
+				update_by_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="optionalId != null">
+				#{optionalId,jdbcType=VARCHAR},
+			</if>
+			<if test="optionalHourId != null">
+				#{optionalHourId,jdbcType=VARCHAR},
+			</if>
+			<if test="optionalHour != null">
+				#{optionalHour,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createById != null">
+				#{createById,jdbcType=VARCHAR},
+			</if>
+			<if test="createByName != null">
+				#{createByName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateById != null">
+				#{updateById,jdbcType=VARCHAR},
+			</if>
+			<if test="updateByName != null">
+				#{updateByName,jdbcType=VARCHAR},
+			</if>
+
+		</trim>
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.fuHuiBookManage.domain.RoomOptionalHourDO">
+		update room_optional_hour 
+		<set>
+			<if test="optionalHourId != null">`optional_hour_id` = #{optionalHourId}, </if>
+			<if test="optionalHour != null">`optional_hour` = #{optionalHour}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}</if>
+		</set>
+		where optional_id = #{optionalId}
+	</update>
+	
+	<delete id="remove">
+		delete from room_optional_hour where optional_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from room_optional_hour where optional_id in 
+		<foreach item="optionalId" collection="array" open="(" separator="," close=")">
+			#{optionalId}
+		</foreach>
+	</delete>
+
+</mapper>

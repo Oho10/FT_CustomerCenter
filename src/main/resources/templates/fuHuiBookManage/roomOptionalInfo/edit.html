@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="roomOptionalId" name="roomOptionalId" th:value="${roomOptionalInfo.roomOptionalId}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">可选择类型 ：</label>
+								<div class="col-sm-8">
+									<input id="optionalType" name="optionalType" th:value="${roomOptionalInfo.optionalType}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">可选择人员类型：</label>
+								<div class="col-sm-8">
+									<input id="optionalPersonType" name="optionalPersonType" th:value="${roomOptionalInfo.optionalPersonType}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">可选择等级ID：</label>
+								<div class="col-sm-8">
+									<input id="optionalGradeId" name="optionalGradeId" th:value="${roomOptionalInfo.optionalGradeId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">可选择地点ID：</label>
+								<div class="col-sm-8">
+									<input id="optionalPlaceId" name="optionalPlaceId" th:value="${roomOptionalInfo.optionalPlaceId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">可选择时长ID：</label>
+								<div class="col-sm-8">
+									<input id="optionalHourId" name="optionalHourId" th:value="${roomOptionalInfo.optionalHourId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">描述：</label>
+								<div class="col-sm-8">
+									<input id="optionalDesc" name="optionalDesc" th:value="${roomOptionalInfo.optionalDesc}" class="form-control" type="text">
+								</div>
+							</div>
+								<!--						<div class="form-group">
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="createTime" name="createTime" th:value="${roomOptionalInfo.createTime}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建人：</label>
+								<div class="col-sm-8">
+									<input id="createById" name="createById" th:value="${roomOptionalInfo.createById}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建人姓名：</label>
+								<div class="col-sm-8">
+									<input id="createByName" name="createByName" th:value="${roomOptionalInfo.createByName}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">修改时间：</label>
+								<div class="col-sm-8">
+									<input id="updateTime" name="updateTime" th:value="${roomOptionalInfo.updateTime}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">修改人：</label>
+								<div class="col-sm-8">
+									<input id="updateById" name="updateById" th:value="${roomOptionalInfo.updateById}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">修改人姓名：</label>
+								<div class="col-sm-8">
+									<input id="updateByName" name="updateByName" th:value="${roomOptionalInfo.updateByName}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">是否删除（Y-已删除），其他为未删除，默认为空：</label>
+								<div class="col-sm-8">
+									<input id="isDelete" name="isDelete" th:value="${roomOptionalInfo.isDelete}" class="form-control" type="text">
+								</div>
+							</div>
+												-->									<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/fuHuiBookManage/roomOptionalInfo/edit.js">
+	</script>
+</body>
+</html>

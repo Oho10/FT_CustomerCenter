@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.fuHuiBookManage.dao.StatementRecordDao">
+
+	<select id="get" resultType="com.bootdo.fuHuiBookManage.domain.StatementRecordDO">
+		select `statement_record_id`,`statement_type`,`statement_by_id`,`statement_by_name`,`statement_time`,`is_first_status`,`is_effective_status`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from statement_record where statement_record_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.fuHuiBookManage.domain.StatementRecordDO">
+		select `statement_record_id`,`statement_type`,`statement_by_id`,`statement_by_name`,`statement_time`,`is_first_status`,`is_effective_status`,`create_time`,`create_by_id`,`create_by_name`,`update_time`,`update_by_id`,`update_by_name` from statement_record
+        <where>  
+		  		  <if test="statementRecordId != null and statementRecordId != ''"> and statement_record_id = #{statementRecordId} </if>
+		  		  <if test="statementType != null and statementType != ''"> and statement_type = #{statementType} </if>
+		  		  <if test="statementById != null and statementById != ''"> and statement_by_id = #{statementById} </if>
+		  		  <if test="statementByName != null and statementByName != ''"> and statement_by_name = #{statementByName} </if>
+		  		  <if test="statementTime != null and statementTime != ''"> and statement_time = #{statementTime} </if>
+		  		  <if test="isFirstStatus != null and isFirstStatus != ''"> and is_first_status = #{isFirstStatus} </if>
+		  		  <if test="isEffectiveStatus != null and isEffectiveStatus != ''"> and is_effective_status = #{isEffectiveStatus} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by statement_record_id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from statement_record
+		 <where>  
+		  		  <if test="statementRecordId != null and statementRecordId != ''"> and statement_record_id = #{statementRecordId} </if>
+		  		  <if test="statementType != null and statementType != ''"> and statement_type = #{statementType} </if>
+		  		  <if test="statementById != null and statementById != ''"> and statement_by_id = #{statementById} </if>
+		  		  <if test="statementByName != null and statementByName != ''"> and statement_by_name = #{statementByName} </if>
+		  		  <if test="statementTime != null and statementTime != ''"> and statement_time = #{statementTime} </if>
+		  		  <if test="isFirstStatus != null and isFirstStatus != ''"> and is_first_status = #{isFirstStatus} </if>
+		  		  <if test="isEffectiveStatus != null and isEffectiveStatus != ''"> and is_effective_status = #{isEffectiveStatus} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="createById != null and createById != ''"> and create_by_id = #{createById} </if>
+		  		  <if test="createByName != null and createByName != ''"> and create_by_name = #{createByName} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="updateById != null and updateById != ''"> and update_by_id = #{updateById} </if>
+		  		  <if test="updateByName != null and updateByName != ''"> and update_by_name = #{updateByName} </if>
+		  		</where>
+	</select>
+	 
+	<!--<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.StatementRecordDO">
+		insert into statement_record
+		(
+			`statement_record_id`, 
+			`statement_type`, 
+			`statement_by_id`, 
+			`statement_by_name`, 
+			`statement_time`, 
+			`is_first_status`, 
+			`is_effective_status`, 
+			`create_time`, 
+			`create_by_id`, 
+			`create_by_name`, 
+			`update_time`, 
+			`update_by_id`, 
+			`update_by_name`
+		)
+		values
+		(
+			#{statementRecordId}, 
+			#{statementType}, 
+			#{statementById}, 
+			#{statementByName}, 
+			#{statementTime}, 
+			#{isFirstStatus}, 
+			#{isEffectiveStatus}, 
+			#{createTime}, 
+			#{createById}, 
+			#{createByName}, 
+			#{updateTime}, 
+			#{updateById}, 
+			#{updateByName}
+		)
+	</insert>-->
+	<insert id="save" parameterType="com.bootdo.fuHuiBookManage.domain.StatementRecordDO">
+		<!--
+          WARNING - @mbggenerated
+          Generated on 2018-07-31 17:46:59.
+              根据传入的参数添加部分信息
+        -->
+		insert into statement_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="statementRecordId != null">
+				statement_record_id,
+			</if>
+			<if test="statementType != null">
+				statement_type,
+			</if>
+			<if test="statementById != null">
+				statement_by_id,
+			</if>
+			<if test="statementByName != null">
+				statement_by_name,
+			</if>
+			<if test="statementTime != null">
+				statement_time,
+			</if>
+			<if test="isFirstStatus != null">
+				is_first_status,
+			</if>
+			<if test="isEffectiveStatus != null">
+				is_effective_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createById != null">
+				create_by_id,
+			</if>
+			<if test="createByName != null">
+				create_by_name,
+			</if>
+			<if test="updateTime != null">
+				update_by_name,
+			</if>
+			<if test="updateById != null">
+				update_by_id,
+			</if>
+			<if test="updateByName != null">
+				update_by_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="statementRecordId != null">
+				#{statementRecordId,jdbcType=VARCHAR},
+			</if>
+			<if test="statementType != null">
+				#{statementType,jdbcType=VARCHAR},
+			</if>
+			<if test="statementById != null">
+				#{statementById,jdbcType=VARCHAR},
+			</if>
+			<if test="statementByName != null">
+				#{statementByName,jdbcType=TIMESTAMP},
+			</if>
+			im prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="statementTime != null">
+				#{statementTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isFirstStatus != null">
+				#{isFirstStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="isEffectiveStatus != null">
+				#{isEffectiveStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createById != null">
+				#{createById,jdbcType=VARCHAR},
+			</if>
+			<if test="createByName != null">
+				#{createByName,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateById != null">
+				#{updateById,jdbcType=VARCHAR},
+			</if>
+			<if test="updateByName != null">
+				#{updateByName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.bootdo.fuHuiBookManage.domain.StatementRecordDO">
+		update statement_record 
+		<set>
+			<if test="statementType != null">`statement_type` = #{statementType}, </if>
+			<if test="statementById != null">`statement_by_id` = #{statementById}, </if>
+			<if test="statementByName != null">`statement_by_name` = #{statementByName}, </if>
+			<if test="statementTime != null">`statement_time` = #{statementTime}, </if>
+			<if test="isFirstStatus != null">`is_first_status` = #{isFirstStatus}, </if>
+			<if test="isEffectiveStatus != null">`is_effective_status` = #{isEffectiveStatus}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="createById != null">`create_by_id` = #{createById}, </if>
+			<if test="createByName != null">`create_by_name` = #{createByName}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="updateById != null">`update_by_id` = #{updateById}, </if>
+			<if test="updateByName != null">`update_by_name` = #{updateByName}</if>
+		</set>
+		where statement_record_id = #{statementRecordId}
+	</update>
+	
+	<delete id="remove">
+		delete from statement_record where statement_record_id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from statement_record where statement_record_id in 
+		<foreach item="statementRecordId" collection="array" open="(" separator="," close=")">
+			#{statementRecordId}
+		</foreach>
+	</delete>
+
+</mapper>

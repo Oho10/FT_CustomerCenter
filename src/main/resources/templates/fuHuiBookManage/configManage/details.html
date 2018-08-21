@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+						<input id="configId" name="configId" th:value="${configManage.configId}"  type="hidden">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">配置名称：</label>
+								<div class="col-sm-8">
+									<input id="configName" name="configName" th:value="${configManage.configName}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">配置图片路径：</label>
+								<div class="col-sm-8">
+									<input id="configImageId" name="configImageId" th:value="${configManage.configImageId}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">配置数量：</label>
+								<div class="col-sm-8">
+									<input id="configNumber" name="configNumber" th:value="${configManage.configNumber}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">配置状态：</label>
+								<div class="col-sm-8">
+									<input id="configStatus" name="configStatus" th:value="${configManage.configStatus}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">配置描述：</label>
+								<div class="col-sm-8">
+									<input id="configDesc" name="configDesc" th:value="${configManage.configDesc}" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">配置批注：</label>
+								<div class="col-sm-8">
+									<input id="configAnnotation" name="configAnnotation" th:value="${configManage.configAnnotation}" class="form-control" type="text">
+								</div>
+							</div>
+								<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建时间：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createTime" name="createTime" th:value="${configManage.createTime}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建人：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createById" name="createById" th:value="${configManage.createById}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">创建人姓名：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="createByName" name="createByName" th:value="${configManage.createByName}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改时间：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateTime" name="updateTime" th:value="${configManage.updateTime}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改人：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateById" name="updateById" th:value="${configManage.updateById}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">修改人姓名：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="updateByName" name="updateByName" th:value="${configManage.updateByName}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+														<!--<div class="form-group">	-->
+								<!--<label class="col-sm-3 control-label">是否删除（Y-已删除），其他为未删除，默认为空：</label>-->
+								<!--<div class="col-sm-8">-->
+									<!--<input id="isDelete" name="isDelete" th:value="${configManage.isDelete}" class="form-control" type="text">-->
+								<!--</div>-->
+							<!--</div>-->
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/fuHuiBookManage/configManage/edit.js">
+	</script>
+</body>
+</html>
