@@ -71,6 +71,7 @@ public class BuildTree {
 				continue;
 			}
 
+
 			for (Tree<T> parent : nodes) {
 				String id = parent.getId();
 				if (id != null && id.equals(pid)) {

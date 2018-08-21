@@ -1,6 +1,7 @@
 package com.bootdo.common.controller;
 
 import com.bootdo.common.config.Constant;
+import com.bootdo.common.dao.DictDao;
 import com.bootdo.common.domain.DictDO;
 import com.bootdo.common.service.DictService;
 import com.bootdo.common.utils.PageUtils;
@@ -135,7 +136,7 @@ public class DictController extends BaseController {
 	@GetMapping("/type")
 	@ResponseBody
 	public List<DictDO> listType(HttpServletRequest request) {
-		String language_mark = request.getParameter("language_mark");
+		/*String language_mark = request.getParameter("language_mark");
 		Object language = request.getSession().getAttribute
 				(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME);
 		String locale = request.getLocale().toString();
@@ -153,8 +154,9 @@ public class DictController extends BaseController {
 			if("en_US".equals(language.toString())){
 				dictList = dictService.listType_en();
 			}
-		}
-
+		}*/
+      List<DictDO> dictList = new ArrayList<>();
+		dictList=dictService.listType();
 		return dictList;
 	};
 
